@@ -1,11 +1,11 @@
-from  pydantic_settings import BaseSttings, SettigsConfigDict
-from core.config import BasePath
+from  pydantic_settings import BaseSettings, SettingsConfigDict
+from core.config_path import BasePath
 from dotenv import load_dotenv 
 
 load_dotenv(dotenv_path=f"{BasePath}/.env", override=True)
 
-class Settings(BaseSttings):
-    model_config = SettigsConfigDict(
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
         env_file=f"{BasePath}/.env",
         env_file_encoding="utf-8",
         extra="ignore"
