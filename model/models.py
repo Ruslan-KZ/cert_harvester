@@ -32,3 +32,4 @@ class FinishedCourses(Base):
 
     status = relationship("CourseStatus", back_populates="finished")
 
+
