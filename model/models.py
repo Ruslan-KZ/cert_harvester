@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, Text, Column, func, DateTime, ForeignKey, Float, Boolean, DECIMAL, Date
+from sqlalchemy import (String, Integer, Text, Column, func, DateTime, ForeignKey, Float, Boolean, DECIMAL, Date)
 from sqlalchemy.orm import relationship
 from database.db import Base
 
@@ -7,8 +7,8 @@ class User(Base):
     __tablename__ = 'users'
     
     id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, nullable= False)
-    password = Column(String, nullable=False)
+    coursera_email  = Column(String, unique=True, nullable= False)
+    coursera_password_encrypted  = Column(String, nullable=False)
 
     courses = relationship("CourseStatus", back_populates="user")
 

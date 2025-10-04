@@ -1,7 +1,8 @@
 from fastapi import APIRouter
+from app.api.web import frontend
 
-router = APIRouter()
 
-@router.get("/auth_route")
-def auth_route():
-    return {"message":" Hello"}
+route = APIRouter()
+
+
+route.include_router(frontend.router,prefix='/front', tags=["Frontend"])

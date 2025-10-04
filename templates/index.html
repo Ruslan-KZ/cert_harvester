@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coursera Bot — Автоматизация курсов</title>
+  <link rel="stylesheet" href="/static_files/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Coursera Bot 🤖</h1>
+    <p class="subtitle">Автоматическое прохождение и загрузка сертификатов</p>
+
+    <form id="bot-form">
+      <label for="email">Coursera Email:</label>
+      <input type="email" id="email" placeholder="example@gmail.com" required>
+
+      <label for="password">Coursera Пароль:</label>
+      <input type="password" id="password" placeholder="Введите пароль" required>
+
+      <label for="links">Ссылки на курсы (вставляй до 10 ссылок с новой строки каждая!):</label>
+      <textarea id="links" rows="5" placeholder="https://www.coursera.org/learn/python
+https://www.coursera.org/learn/sql"></textarea>
+
+      <button type="submit" id="start-btn">🚀 Запустить бота</button>
+    </form>
+
+    <div id="status-box" class="hidden">
+      <h3>Статус:</h3>
+      <p id="status-text">Запуск...</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("bot-form");
+    const statusBox = document.getElementById("status-box");
+    const statusText = document.getElementById("status-text");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusBox.classList.remove("hidden");
+      statusText.textContent = "Бот запускается...";
+
+      const data = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        links: document.getElementById("links").value.split("\n").filter(x => x.trim() !== "")
+      };
+
+      try {
+        const res = await fetch("/start_bot", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        if (!res.ok) throw new Error("Ошибка при запуске бота");
+        const result = await res.json();
+        statusText.textContent = "✅ " + (result.status || "Бот успешно запущен!");
+      } catch (err) {
+        statusText.textContent = "❌ Ошибка: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
