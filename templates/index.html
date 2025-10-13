@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coursera Bot — Автоматизация курсов</title>
-  <link rel="stylesheet" href="/static_files/style.css"/>
+  <link rel="stylesheet" href="/static_files/css/style.css" />
 </head>
+
 <body>
   <div class="container">
     <h1>Coursera Bot 🤖</h1>
@@ -48,13 +50,13 @@ https://www.coursera.org/learn/sql"></textarea>
       };
 
       try {
-        const res = await fetch("/start_bot", {
+        const res = await fetch("/api/user/add_user", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data)
         });
 
-        if (!res.ok) throw new Error("Ошибка при запуске бота");
+        if (!res.ok) throw new Error("Ошибка, проверь логин-пароль-ссылки ");
         const result = await res.json();
         statusText.textContent = "✅ " + (result.status || "Бот успешно запущен!");
       } catch (err) {
@@ -63,4 +65,5 @@ https://www.coursera.org/learn/sql"></textarea>
     });
   </script>
 </body>
+
 </html>
