@@ -1,5 +1,5 @@
-from  pydantic_settings import BaseSettings, SettingsConfigDict
-from core.config_path import BasePath
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from app.core.config_path import BasePath
 from dotenv import load_dotenv 
 
 load_dotenv(dotenv_path=f"{BasePath}/.env", override=True)

@@ -1,11 +1,11 @@
-from model.models import User,Course
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select,insert,delete,update
-from app.api.user.schemas.create import BotRequest
-from model.models import CourseStatusEnum
+from sqlalchemy.future import select
+from app.model.models import User,Course
+from app.model.models import CourseStatusEnum
+from app.schemas.user.create import UserCreate
 
 
-async def add_users(data: BotRequest,db:AsyncSession):
+async def add_users(data: UserCreate,db:AsyncSession):
     stmt = await db.execute(select(User).where(User.coursera_email==data.email))
     existing = stmt.scalar_one_or_none()
     if existing:

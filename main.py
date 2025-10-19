@@ -1,12 +1,18 @@
 from fastapi import FastAPI
+import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from app.router import route as main_route
+from app.api.router import route as main_route
 
-app = FastAPI()  
+
+
+app = FastAPI(title="Coursera Cert Harvester", version="1.0.0")  
 
 
 app.mount("/static_files", StaticFiles(directory="static_files"), name="static_files")
+
+
+
 
 
 origins = [
@@ -22,3 +28,9 @@ app.add_middleware(
 )   
 
 app.include_router(main_route,prefix="/api")
+
+
+
+if __name__=="__main__":
+    uvicorn.run("main:app", host="localhost", port=8000, reload=True)
+
