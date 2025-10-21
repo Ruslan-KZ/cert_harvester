@@ -5,7 +5,7 @@ from app.model.models import CourseStatusEnum
 from app.schemas.user.create import UserCreate
 
 
-async def add_users(data: UserCreate,db:AsyncSession):
+async def add_user(data: UserCreate,db:AsyncSession):
     stmt = await db.execute(select(User).where(User.coursera_email==data.email))
     existing = stmt.scalar_one_or_none()
     if existing:
@@ -31,6 +31,4 @@ async def add_users(data: UserCreate,db:AsyncSession):
 async def get_users(db:AsyncSession):
     stmt = await db.execute(select(User))
     results = stmt.scalars().all()
-    if not results:
-        return []
-    return [dict(id=u.id, coursera_email=u.coursera_email) for u in results]
+    return results

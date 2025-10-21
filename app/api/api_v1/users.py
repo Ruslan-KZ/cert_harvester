@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.schemas.user.create import UserCreate
 from app.schemas.user.respons import UserResponse
 from app.database.db import get_db
-from app.database.repositories.user_repository import add_users, get_users
+from app.database.repositories.user_repository import add_user, get_users
 
 
 
@@ -16,7 +16,7 @@ router = APIRouter()
 )
 
 async def api_add_user(data:UserCreate, db:AsyncSession = Depends(get_db)):
-    return await add_users(data,db)
+    return await add_user(data,db)
 
 @router.get("/", 
     summary= "Получаем всех пользователей",
